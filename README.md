@@ -1,4 +1,4 @@
-# Biggs Collings Tribute
+# Painting by numbers
 
 This project is for me to experiment drawing in Scala. It is written using [Creative Scala][creative-scala]. 
 
