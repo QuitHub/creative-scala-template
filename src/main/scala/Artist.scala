@@ -1,4 +1,0 @@
-trait Artist {
-
-  def colourTriangles
-}

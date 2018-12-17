@@ -21,13 +21,6 @@ object Canvass {
   }
 }
 
-trait Triangle {
-  val height: Int
-  val width: Int
-}
-
-trait ColouredTriangle extends Triangle with HSLColour
-
 trait HSLColour {
   val hue: Angle
   val saturation: Normalized
