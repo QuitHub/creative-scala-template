@@ -1,24 +1,30 @@
-import doodle.core.{Angle, Normalized}
+import doodle.core.{Angle, Image, Normalized}
 
-import scala.collection.immutable.List
+case class CanvassLayout(diRecColumns: Int, diRecRows: Int)
+
+case class Canvass(diRecs: List[UncolouredDiRec], layout: CanvassLayout) {
+
+  def toImage: Image = {
+    val rowsOfDiRec: Iterator[List[UncolouredDiRec]] = diRecs.grouped(layout.diRecColumns)
+    val rowsOfImages: Iterator[Image] = rowsOfDiRec.map(row => row.foldLeft(Image.empty) ((acc, cur) => acc beside cur.toImage))
+    rowsOfImages.foldLeft(Image.empty)((acc, cur) => acc above cur)
+  }
+}
+
+object Canvass {
+  def blank(layout: CanvassLayout, triangleProperties: TriangleProperties): Canvass = {
+    val foo: Seq[UncolouredDiRec] = for {
+      _ <- 1 to layout.diRecRows
+      _ <- 1 to layout.diRecColumns
+    } yield UncolouredDiRec(triangleProperties)
+    Canvass(foo.toList, layout)
+  }
+}
 
 trait Triangle {
   val height: Int
   val width: Int
 }
-
-object Triangle {
-  //TODO get the triangle orientation based on some form of index
-  def orientation(layout: List[Triangle], triangleCountXy: TriangleCountXY): Orientation = {
-    BL
-  }
-}
-
-object Test {
-  def setupCanvass(triangleHeight: Int, triangleWidth: Int, triangleCountXy: TriangleCountXY) = ???
-
-}
-
 
 trait ColouredTriangle extends Triangle with HSLColour
 
@@ -27,24 +33,4 @@ trait HSLColour {
   val saturation: Normalized
   val lightness: Normalized
 }
-
-
-
-
-case class TriangleCountXY(triangleCountX: Int, triangleCountY: Int) {
-  def apply(triangleCountX: Int, triangleCountY: Int): TriangleCountXY = {
-
-    new TriangleCountXY(triangleCountX, triangleCountY)
-  }
-}
-
-sealed trait Orientation
-
-case object BL extends Orientation
-
-case object BR extends Orientation
-
-case object TL extends Orientation
-
-case object TR extends Orientation
 
