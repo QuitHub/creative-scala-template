@@ -10,7 +10,6 @@ case class TriangleProperties(width: Int, height: Int, lineWidth: Double)
 
 case class CanvasLayout(diRecColumns: Int, diRecRows: Int)
 
-
 case class DiRecRenderer(tp: TriangleProperties) {
 
   def makeBottomRight: Image = closedPath(List(
@@ -38,8 +37,6 @@ case class DiRecRenderer(tp: TriangleProperties) {
     lineTo(cartesian(0, 0)))).
     lineWidth(tp.lineWidth)
 }
-
-
 
 object Example {
 

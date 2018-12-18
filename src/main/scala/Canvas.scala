@@ -18,6 +18,3 @@ object Canvas {
     Canvas(foo.toList, layout)
   }
 }
-
-
-
