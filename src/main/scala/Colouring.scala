@@ -1,7 +1,7 @@
 import doodle.core.{Angle, Color, Normalized}
 import doodle.syntax.uByte._
 
-trait Colouring {
+object Colouring {
 
   val palette: Set[Color] = {
     val aliceBlue            = Color.rgb(0xf0.uByte, 0xf8.uByte, 0xff.uByte)
@@ -18,20 +18,9 @@ trait Colouring {
 
     Set(aliceBlue, antiqueWhite, aqua, aquamarine, azure, beige, bisque, black, blanchedAlmond, blue, blueViolet)
   }
-  def colourCanvas(canvas: Canvas): Canvas = {
-    val diRecs = canvas.diRecs
-    val layout = canvas.layout
-    val newDiRecs = canvas.diRecs.map(diRec => diRec.)
 
-  }
-
-  def colourDiRec(diRec: DiRec): DiRec = {
-
-  }
-
-  def colourTriangle(diRec: DiRec, index: Int): DiRec = {
-    val newTriangle = diRec.getTriangle(index).map(image => image.fillColor(getRandomColour))
-    diRec.copy()
+  def getColours(canvasLayout: CanvasLayout): List[Color] = {
+    (0 until canvasLayout.diRecColumns * canvasLayout.diRecRows * 8).map(_ => getRandomColour).toList
   }
 
   def getRandomColour: Color = {

@@ -9,12 +9,12 @@ case class Canvas(diRecs: List[DiRec], layout: CanvasLayout) {
   }
 }
 
-object Canvas {
-  def blank(layout: CanvasLayout, triangleProperties: TriangleProperties): Canvas = {
-    val foo: Seq[DiRec] = for {
-      _ <- 1 to layout.diRecRows
-      _ <- 1 to layout.diRecColumns
-    } yield DiRec(triangleProperties)
-    Canvas(foo.toList, layout)
-  }
-}
+//object Canvas {
+//  def blank(layout: CanvasLayout, triangleProperties: TriangleDimensions): Canvas = {
+//    val foo: Seq[DiRec] = for {
+//      _ <- 1 to layout.diRecRows
+//      _ <- 1 to layout.diRecColumns
+//    } yield DiRec(triangleProperties)
+//    Canvas(foo.toList, layout)
+//  }
+//}

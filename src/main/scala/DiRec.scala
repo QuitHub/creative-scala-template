@@ -38,28 +38,28 @@ case class DiRec(
 }
 
 
-object DiRec {
-
-  def apply(triangleProperties: TriangleProperties): DiRec = {
-
-    val drawer = DiRecRenderer(triangleProperties)
-
-    val topRightInner: Image = drawer.makeBottomLeft
-
-    val topRightOuter: Image = drawer.makeTopRight
-
-    val topLeftOuter: Image = drawer.makeTopLeft
-
-    val topLeftInner: Image = drawer.makeBottomRight
-
-    val bottomLeftOuter: Image = drawer.makeBottomLeft
-
-    val bottomLeftInner: Image = drawer.makeTopRight
-
-    val bottomRightInner: Image = drawer.makeTopLeft
-
-    val bottomRightOuter: Image = drawer.makeBottomRight
-
-    DiRec(topRightInner, topRightOuter, topLeftOuter, topLeftInner, bottomLeftOuter, bottomLeftInner, bottomRightInner, bottomRightOuter)
-  }
-}
+//object DiRec {
+//
+//  def apply(triangleProperties: TriangleDimensions): DiRec = {
+//
+//    val drawer = TriangleRenderer(triangleProperties)
+//
+//    val topRightInner: Image = drawer.makeBottomLeft
+//
+//    val topRightOuter: Image = drawer.makeTopRight
+//
+//    val topLeftOuter: Image = drawer.makeTopLeft
+//
+//    val topLeftInner: Image = drawer.makeBottomRight
+//
+//    val bottomLeftOuter: Image = drawer.makeBottomLeft
+//
+//    val bottomLeftInner: Image = drawer.makeTopRight
+//
+//    val bottomRightInner: Image = drawer.makeTopLeft
+//
+//    val bottomRightOuter: Image = drawer.makeBottomRight
+//
+//    DiRec(topRightInner, topRightOuter, topLeftOuter, topLeftInner, bottomLeftOuter, bottomLeftInner, bottomRightInner, bottomRightOuter)
+//  }
+//}
