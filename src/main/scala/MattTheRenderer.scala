@@ -1,11 +1,9 @@
-import Colouring._
-import doodle.core.{Color, Image}
 import doodle.core.Image._
 import doodle.core.PathElement.{lineTo, moveTo}
 import doodle.core.Point.cartesian
+import doodle.core.{Color, Image}
 
 object MattTheRenderer {
-
 
   sealed trait TriangleOrientation
 
@@ -41,29 +39,28 @@ object MattTheRenderer {
 
 
   def render(canvasLayout: CanvasLayout,
-             triangleDimensions: TriangleDimensions): Image = {
+             triangleDimensions: TriangleDimensions,
+             colours: List[Color]): Image = {
 
-    val colours = getColours(canvasLayout)
     val triangles = getTriangles(canvasLayout, triangleDimensions, colours)
     val rows: List[List[Image]] = triangles.grouped(canvasLayout.diRecColumns * 4).toList
-    val rowsAsImages: List[Image] = rows.map(joinTriangleRow)
+
+    val rowsAsImages: List[Image] = rows.map(joinTriangleRow(_, triangleDimensions.width))
 
     rowsAsImages.fold(Image.empty)(_ above _)
   }
 
 
-  def joinTriangleRow(images: List[Image]): Image = {
-    val first = images.head
-    images.tail.zipWithIndex.foldLeft(first)(joinImages)
+  def joinTriangleRow(images: List[Image], triangleWidth: Int): Image = {
+
+    images.zipWithIndex.foldLeft(Image.empty)(joinImages(triangleWidth))
   }
 
-  def joinImages(accImage: Image, elem: (Image, Int)): Image = {
+  def joinImages(triangleWidth: Int)(accImage: Image, elem: (Image, Int)): Image = {
     val (triangle, index) = elem
-    if (index % 2 == 1) {
-      accImage beside triangle
-    } else {
-      accImage on triangle
-    }
+
+    accImage on triangle.at(index / 2 * triangleWidth, 0)
+
   }
 
   def getTriangles(canvasLayout: CanvasLayout,
@@ -75,7 +72,6 @@ object MattTheRenderer {
       .map { case (colour, index) => (colour, makeTriangle(index, triangleDimensions)) }
       .map { case (colour, image) => image.fillColor(colour) }
   }
-
 
   def makeTriangle(orientation: TriangleOrientation, tp: TriangleDimensions): Image = {
 
@@ -111,8 +107,6 @@ object MattTheRenderer {
       case TR => makeTopRight
     }
   }
-
-
 }
 
 

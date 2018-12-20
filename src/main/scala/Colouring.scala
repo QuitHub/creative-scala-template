@@ -15,18 +15,45 @@ object Colouring {
     val blanchedAlmond       = Color.rgb(0xff.uByte, 0xeb.uByte, 0xcd.uByte)
     val blue                 = Color.rgb(0x00.uByte, 0x00.uByte, 0xff.uByte)
     val blueViolet           = Color.rgb(0x8a.uByte, 0x2b.uByte, 0xe2.uByte)
+    val maroon               = Color.rgb(0x80.uByte, 0x00.uByte, 0x00.uByte)
 
-    Set(aliceBlue, antiqueWhite, aqua, aquamarine, azure, beige, bisque, black, blanchedAlmond, blue, blueViolet)
+    Set(aliceBlue, antiqueWhite, aqua, aquamarine, azure, blueViolet) map(_.alpha(Normalized(0.3)))
   }
 
   def getColours(canvasLayout: CanvasLayout): List[Color] = {
-    (0 until canvasLayout.diRecColumns * canvasLayout.diRecRows * 8).map(_ => getRandomColour).toList
+    (0 until canvasLayout.diRecColumns * canvasLayout.diRecRows * 8).map{
+      i => {
+
+        foregroundify(getRandomColour(i), i)
+      }
+    }.toList
   }
 
-  def getRandomColour: Color = {
+  def getRandomColour(index: Int): Color = {
     val r = scala.util.Random
-    val num = r.nextInt(11)
+    val num = r.nextInt(palette.size)
     palette.toList(num)
+  }
+
+
+  def foregroundify(color: Color, index: Int)= {
+    if (isInner(index)){
+      color
+    } else {
+      color.desaturateBy(Normalized(0.4))
+      color.lightenBy(Normalized(0.7))
+      color.fadeOutBy(Normalized(0.75))
+    }
+
+  }
+
+  def isInner(index: Int): Boolean = {
+    index % 4 match {
+      case 0 => false
+      case 1 => true
+      case 2 => true
+      case 3 => false
+    }
   }
 }
 
