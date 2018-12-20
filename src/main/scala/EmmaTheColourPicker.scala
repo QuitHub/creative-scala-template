@@ -1,7 +1,7 @@
 import doodle.core.{Angle, Color, Normalized}
 import doodle.syntax.uByte._
 
-object Colouring {
+object EmmaTheColourPicker {
 
   val palette: Set[Color] = {
     val aliceBlue            = Color.rgb(0xf0.uByte, 0xf8.uByte, 0xff.uByte)
@@ -21,7 +21,10 @@ object Colouring {
   }
 
   def getColours(canvasLayout: CanvasLayout): List[Color] = {
-    (0 until canvasLayout.diRecColumns * canvasLayout.diRecRows * 8).map{
+    val triangleCount = canvasLayout.diRecColumns * canvasLayout.diRecRows * 8
+    val index = 0 until triangleCount
+
+    index.map{
       i => {
 
         foregroundify(getRandomColour(i), i)
@@ -36,7 +39,7 @@ object Colouring {
   }
 
 
-  def foregroundify(color: Color, index: Int)= {
+  def foregroundify(color: Color, index: Int): Color = {
     if (isInner(index)){
       color
     } else {

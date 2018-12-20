@@ -1,4 +1,4 @@
-import Colouring.getColours
+import EmmaTheColourPicker.getColours
 import doodle.backend.StandardInterpreter._
 import doodle.core.Image
 import doodle.jvm.Java2DFrame._
